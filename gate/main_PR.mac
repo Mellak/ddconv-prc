@@ -1,0 +1,142 @@
+#####################################
+###                               ###
+###   V I S U A L I S A T I O N   ###
+###                               ###
+#####################################
+#/control/execute /homes/ymellak/PR_Correction/GateSimulations/visu.mac
+
+#############################
+###                       ###
+###   V E R B O S I T Y	  ###
+###                       ###
+#############################
+/control/verbose     0 # Pour afficher le contenu des macros.
+/control/saveHistory
+/run/verbose         0
+/tracking/verbose    0
+/event/verbose       0
+
+#/gate/application/setTotalNumberOfPrimaries 100
+###########################
+###                     ###
+###   M A T E R I A L   ###
+###                     ###
+###########################
+/gate/geometry/setMaterialDatabase /homes/ymellak/PR_Correction/GateSimulations/GateMaterials_Xemis.db
+
+#####################
+###               ###
+###   W O R L D   ###
+###               ###
+#####################
+/gate/world/geometry/setXLength 500 cm
+/gate/world/geometry/setYLength 500 cm
+/gate/world/geometry/setZLength 500 cm
+/gate/world/setMaterial         Air
+/gate/world/vis/setVisible      0
+/gate/world/vis/forceSolid
+/gate/world/vis/setColor white
+
+
+
+#########################
+###                   ###
+###   P H A N T O M   ###
+###                   ###
+#########################
+/control/execute /homes/ymellak/PR_Correction/GateSimulations/phantom_prange.mac
+
+#########################
+###                   ###
+###   P H Y S I C S   ###
+###                   ###
+#########################
+/control/execute /homes/ymellak/PR_Correction/GateSimulations/my_physics.mac
+
+#############################
+###                       ###
+###   T P C   A C T O R   ###
+###                       ###
+#############################
+/gate/actor/addActor  SimulationStatisticActor stat
+/gate/actor/stat/addFilter                        particleFilter
+/gate/actor/stat/particleFilter/addParticle       e+
+/gate/actor/stat/save /homes/ymellak/PR_Correction/NewData/Phantoms_Ga68_{resolution}mm/Phantom_{number}/stats_{number}.txt
+
+/gate/actor/addActor ProductionAndStoppingActor          twog_actor
+/gate/actor/twog_actor/attachTo                         phantom
+/gate/actor/twog_actor/addFilter                        particleFilter
+/gate/actor/twog_actor/particleFilter/addParticle       e+
+
+
+
+/gate/actor/twog_actor/setResolution                    31 31 31
+/gate/actor/twog_actor/setVoxelSize                     2 2 2 mm
+/gate/actor/twog_actor/stepHitType                      post
+/gate/actor/twog_actor/save                             /homes/ymellak/PR_Correction/NewData/Phantoms_Ga68_{resolution}mm/Phantom_{number}/Prod_{number}.mhd
+
+
+
+/gate/actor/addActor MuMapActor getMuMap
+/gate/actor/getMuMap/attachTo world
+/gate/actor/getMuMap/save /homes/ymellak/PR_Correction/NewData/Phantoms_Ga68_{resolution}mm/Phantom_{number}/mu_map511.bin
+/gate/actor/getMuMap/setPosition 0 0 0 mm
+/gate/actor/getMuMap/setVoxelSize 2 2 2 mm
+/gate/actor/getMuMap/setResolution 31 31 31
+
+/gate/actor/getMuMap/setEnergy 511 keV
+/gate/actor/getMuMap/setMuUnit 1 1/cm
+
+###############################
+###                         ###
+###   I N I T I A L I Z E   ###
+###                         ###
+###############################
+/gate/run/initialize
+/gate/physics/displayCuts
+
+
+#############################
+###                       ###
+###   D I G I T I Z E R   ###
+###                       ###
+#############################
+#/gate/digitizer/verbose 0
+#/control/execute macros/digitizer_deb.mac
+#/control/execute macros/digitizer_ionisation.mac
+#/control/execute macros/digitizer_scintillation.mac
+
+
+#######################
+###                 ###
+###   S O U R C E   ###
+###                 ###
+#######################
+/control/execute /homes/ymellak/PR_Correction/GateSimulations/point_source.mac 
+
+#########################
+###                   ###
+###   O U T P U T S   ###
+###                   ###
+#########################
+#/control/execute /homes/ymellak/PR_Correction/GateSimulations/outputs_batch_01.mac
+
+
+#######################
+###                 ###
+###   R A N D O M   ###
+###                 ###
+#######################
+/gate/random/setEngineSeed auto
+
+
+#################################
+###                           ###
+###   A C Q U I S I T I O N   ###
+###                           ###
+#################################
+/gate/application/setTimeSlice 1 s
+/gate/application/setTimeStart 0.00 s
+/gate/application/setTimeStop  1 s # 0.01 # 0.002
+/gate/application/start
+

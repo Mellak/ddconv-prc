@@ -1,0 +1,75 @@
+/gate/physics/addPhysicsList emstandard_opt3 #emstandard_opt3
+
+###################
+###   PHYSICS   ###
+###################
+
+
+/gate/physics/addProcess RadioactiveDecay GenericIon
+#/gate/physics/addProcess RadioactiveDecay
+/gate/physics/addProcess Decay e+
+/gate/physics/addProcess PositronAnnihilation  e+
+
+
+#/gate/physics/addProcess G4PositronAnnihilation e+
+#/gate/physics/processes/G4PositronAnnihilation/setModel StandardModel
+#/gate/physics/addProcess PhotoElectric
+#/gate/physics/addProcess Compton
+#/gate/physics/addProcess GammaConversion
+
+
+#/gate/physics/addProcess RayleighScattering
+
+### ELECTRONS
+#/gate/physics/addProcess ElectronIonisation
+
+
+
+### IONS
+/gate/physics/addProcess IonIonisation # This process is necessary for the des-excitation of the Ca44[1157.0]
+
+/gate/physics/addProcess HadronElastic
+
+
+#/gate/physics/processes/IonIonisation/setStepFunction GenericIon 0.1 0.02 mm
+
+
+/gate/physics/processList Enabled
+/gate/physics/processList Initialized
+
+# Cuts for particle in NEMACylinder
+
+#/gate/physics/Gamma/SetCutInRegion phantom 1 mm
+#/gate/physics/Positron/SetCutInRegion phantom 1 mm
+#/gate/physics/Electron/SetCutInRegion phantom 1 mm
+
+
+#/gate/physics/Gamma/SetCutInRegion      world 300.0 mm
+#/gate/physics/Electron/SetCutInRegion   world 1000.0 mm
+
+
+
+
+#/gate/physics/SetMaxTrackLengthInRegion phantom 2 m
+#/gate/physics/ActivateSpecialCuts Gamma
+
+
+#/gate/physics/Gamma/SetCutInRegion phantom 1 mm
+
+
+#/gate/physics/SetMinKineticEnergyInRegion phantom 360 keV
+#/gate/physics/SetMaxTrackLengthInRegion phantom 2 m
+#/gate/physics/ActivateSpecialCuts gamma
+
+
+
+#/gate/physics/SetMaxTrackLengthInRegion phantom 0.01 mm
+#/gate/physics/ActivateSpecialCuts nu_e
+
+#/gate/physics/SetMaxTrackLengthInRegion phantom 2 m
+#/gate/physics/ActivateSpecialCuts gamma
+
+
+
+
+

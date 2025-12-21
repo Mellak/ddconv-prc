@@ -1,0 +1,16 @@
+/gate/source/addSource                     Ga68 #Extended
+/gate/source/Ga68/setActivity           1000000 becquerel #3436 becquerel
+
+
+
+/gate/source/Ga68/gps/particle ion
+/gate/source/Ga68/gps/ion 31 68 0 0  # Rb82: 37 82 0 0 #
+/gate/source/Ga68/gps/monoenergy 0. keV
+/gate/source/Ga68/setForcedUnstableFlag true
+/gate/source/Ga68/useDefaultHalfLife
+
+
+/gate/source/Ga68/gps/centre            0 0 0 mm
+/gate/source/Ga68/gps/angtype           iso
+/gate/source/Ga68/visualize 100 red 10
+/gate/source/list
