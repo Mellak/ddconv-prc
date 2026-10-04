@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+.venv/
+venv/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+
+# Example outputs and operator caches
+examples/output/
+tmp/
+kernels_generated/
+cache/
+
+# Training runs and large data (keep the shipped weights in inference/Weights/)
+Expirements/
+OutErrFolder/
+output_phantoms/
+output_copy_rename/
+out_err_data/
+*.raw
+*.bin
+*.mhd
+*.h33

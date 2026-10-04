@@ -1,6 +1,6 @@
 # Inference (CASToR plugin) — DDConv Positron Range Correction (Ga-68)
 
-This folder contains the **inference-side implementation** of DDConv for **positron range correction (PRC)**, designed to be **used directly inside CASToR** as part of the reconstruction forward / backward model. :contentReference[oaicite:0]{index=0}
+This folder contains the **inference-side implementation** of DDConv for **positron range correction (PRC)**, designed to be **used directly inside CASToR** as part of the reconstruction forward / backward model.
 
 ## Folder content
 - `Weights/`  
@@ -23,7 +23,7 @@ This folder contains the **inference-side implementation** of DDConv for **posit
   CASToR configuration file to plug this operator into the reconstruction chain.
 
 ## How it plugs into CASToR (operator view)
-In the paper notation, the PET system matrix is decomposed as: :contentReference[oaicite:1]{index=1}
+In the paper notation, the PET system matrix is decomposed as:
 
 \[
 H = A(\mu)\, P\, B(\mu)
@@ -36,12 +36,12 @@ where:
 
 Here:
 - `PR_CNN_gate.py` implements **\( B(\mu) \)** (positron range operator),
-- `PR_CNN_gate_T.py` implements **\( B(\mu)^{\top} \)** (its transpose). :contentReference[oaicite:2]{index=2}
+- `PR_CNN_gate_T.py` implements **\( B(\mu)^{\top} \)** (its transpose).
 
 This is exactly what is needed to keep a **matched forward/backward model** inside EM reconstruction.
 
 ## MLEM update (paper notation)
-The MLEM / EM update rule (paper Eq. (3)) is: :contentReference[oaicite:3]{index=3}
+The MLEM / EM update rule (paper Eq. (3)) is:
 
 \[
 x^{(q+1)} =
